@@ -1,1 +1,1 @@
-from gym_k_armed_bandits.envs.k_armed_bandits import KArmedBanditsEnv
+from gym_k_armed_bandits.envs.k_armed_bandits import KArmedBanditsEnv, KArmedBanditsGaussian
