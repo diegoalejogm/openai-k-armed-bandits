@@ -3,7 +3,7 @@ from gym import error, spaces, utils
 from gym.utils import seeding
 import numpy as np
 
-class KArmedBanditsEnv(gym.Env):
+class ArmedBanditsEnv(gym.Env):
     metadata = {'render.modes': ['human']}
 
     def __init__(self, reward_distributions):
@@ -37,12 +37,12 @@ class KArmedBanditsEnv(gym.Env):
         return [seed]
 
 
-class KArmedBanditsGaussian(KArmedBanditsEnv):
+class ArmedBanditsGaussian(ArmedBanditsEnv):
 
     def __init__(self, num_bandits=3):
         distributions = self.__generate_gaussian_reward_distributions__(num_bandits)
         self.means = distributions[1]
-        KArmedBanditsEnv.__init__(self, distributions[0])
+        ArmedBanditsEnv.__init__(self, distributions[0])
 
     def __generate_gaussian_reward_distributions__(self, num_bandits):
         means = np.random.normal(0, 1, size=num_bandits)
