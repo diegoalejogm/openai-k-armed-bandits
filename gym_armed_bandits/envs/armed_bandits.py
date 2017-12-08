@@ -19,10 +19,8 @@ class ArmedBanditsEnv(gym.Env):
     def _step(self, action):
         # Assert action is valid
         assert self.action_space.contains(action)
-        # KArmedBandits is stationary and non-episodal.
-        info = dict() # Empty dict
-        observation, done, info = None, False, dict()
         reward = self.reward_distributions[action]()
+        observation, done, info = None, False, dict() # Defaults
         return observation, reward, done, info
 
     def _reset(self):
@@ -46,5 +44,5 @@ class ArmedBanditsGaussian(ArmedBanditsEnv):
 
     def __generate_gaussian_reward_distributions__(self, num_bandits):
         means = np.random.normal(0, 1, size=num_bandits)
-        distributions = [ lambda : np.random.normal(mu_i) for mu_i in means ]
+        distributions = [ lambda mu_i=mu_i: np.random.normal(mu_i) for mu_i in np.nditer(means) ]
         return distributions, means
